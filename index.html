@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon TCG - Combattez pour devenir champions !</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Pokémon TCG</h1>
+        <div class="player-info">
+            <span>Joueur: <span id="player-name">Dresseur</span></span>
+            <span>Cartes en main: <span id="hand-count">0</span></span>
+            <span>Cartes en pioche: <span id="deck-count">0</span></span>
+        </div>
+    </header>
+
+    <main>
+        <!-- Zone de tirage -->
+        <section class="draw-section">
+            <button id="draw-button" class="draw-button">Tirer 5 cartes</button>
+            <div id="draw-timer" class="draw-timer">Prochain tirage dans: <span id="timer-display">5:00</span></div>
+            <button id="start-battle-btn" class="battle-button">Lancer un combat</button>
+        </section>
+
+        <!-- Zone de jeu -->
+        <section class="game-area">
+            <!-- Zone pioche -->
+            <div class="deck-zone">
+                <h3>Pioche</h3>
+                <div id="deck-container" class="cards-container"></div>
+            </div>
+
+            <!-- Zone main -->
+            <div class="hand-zone">
+                <h3>Main</h3>
+                <div id="hand-container" class="cards-container"></div>
+            </div>
+        </section>
+
+        <!-- Section de combat (cachée par défaut) -->
+        <section id="battle-section" class="battle-section" style="display: none;">
+            <h2>Combat Pokémon</h2>
+            <!-- Encart de scores -->
+            <div id="battle-scores" class="battle-scores">
+                <span>Victoires joueur : <span id="score-player">0</span></span>
+                <span>Victoires IA : <span id="score-ia">0</span></span>
+                <span>Égalités : <span id="score-draw">0</span></span>
+            </div>
+            
+            <!-- Arène Pokémon TCG -->
+            <div class="pokemon-arena">
+                <!-- Joueur 1 (Haut) -->
+                <div class="player-zone player-top">
+                    <div class="player-name">Joueur</div>
+                    
+                    <!-- Zone deck/défausse (haut) -->
+                    <div class="deck-discard-zone">
+                        <div class="zone-label">Deck</div>
+                        <div class="deck-slots" id="battle-deck-container"></div>
+                        <div class="zone-label">Défausse</div>
+                        <div class="discard-slots" id="battle-discard-container"></div>
+                    </div>
+                    
+                    <!-- Zone centrale joueur 1 -->
+                    <div class="center-zone">
+                        <!-- Main du joueur -->
+                        <div class="hand-zone-battle">
+                            <div class="zone-label">Main</div>
+                            <div class="hand-slots" id="battle-hand-container"></div>
+                        </div>
+                        
+                        <!-- Pokémon actif -->
+                        <div class="active-pokemon-zone">
+                            <div class="zone-label">Pokémon Actif</div>
+                            <div class="card-slot active-slot" id="battle-player-combat"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Séparateur central avec Poké Ball -->
+                <div class="arena-separator">
+                    <div class="pokeball-center">
+                        <div class="pokeball-top"></div>
+                        <div class="pokeball-center-line"></div>
+                        <div class="pokeball-bottom"></div>
+                        <div class="pokeball-button"></div>
+                    </div>
+                </div>
+                
+                <!-- Joueur 2 (Bas) - IA -->
+                <div class="player-zone player-bottom">
+                    <div class="player-name">IA</div>
+                    
+                    <!-- Zone centrale joueur 2 -->
+                    <div class="center-zone">
+                        <!-- Pokémon actif -->
+                        <div class="active-pokemon-zone">
+                            <div class="zone-label">Pokémon Actif</div>
+                            <div class="card-slot active-slot" id="battle-opponent-combat"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Zone deck/défausse (bas) -->
+                    <div class="deck-discard-zone">
+                        <div class="zone-label">Deck</div>
+                        <div class="deck-slots" id="battle-opponent-deck-container"></div>
+                        <div class="zone-label">Défausse</div>
+                        <div class="discard-slots" id="battle-opponent-discard-container"></div>
+                    </div>
+                    
+                    <!-- Main de l'IA -->
+                    <div class="hand-zone-battle">
+                        <div class="zone-label">Main</div>
+                        <div class="hand-slots" id="battle-opponent-hand-container"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="battle-controls" class="battle-controls"></div>
+            <!-- Zone de commentaires post-combat -->
+            <div id="battle-comments-section" class="battle-comments-section" style="display: none;">
+                <h3>Laissez un commentaire sur ce combat</h3>
+                <form id="battle-comment-form">
+                    <input type="text" id="battle-comment-input" maxlength="120" placeholder="Votre commentaire..." required />
+                    <button type="submit">Envoyer</button>
+                </form>
+                <div id="battle-comments-list"></div>
+            </div>
+        </section>
+
+        <!-- Modal pour les détails de carte -->
+        <div id="card-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <div id="card-details"></div>
+            </div>
+        </div>
+
+        <!-- Modal pour le résultat de combat -->
+        <div id="battle-result-modal" class="modal">
+            <div class="modal-content battle-result-content">
+                <div id="battle-result-details"></div>
+                <button id="close-battle-result-btn" class="battle-button">Fermer</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="src/js/app.js" type="module"></script>
+</body>
+</html> 
